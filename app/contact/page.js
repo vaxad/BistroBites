@@ -1,9 +1,9 @@
-import Home from "./components/Home";
+import Contact from "../components/Contact";
 
 export default function Bistro() {
   return (
     <main>
-      <Home/>
+      <Contact/>
     </main>
   )
 }
