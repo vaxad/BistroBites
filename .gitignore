@@ -5,8 +5,6 @@
 /.pnp
 .pnp.js
 
-/tsconfig.json
-
 # testing
 /coverage
 
