@@ -90,7 +90,7 @@ body {
 }
 
 
-#viewCart, #contact{
+#viewCart, #contact,#confirmation{
   background-image: url('../public/bg4.jpg');
   background-size:cover;
   background-repeat: no-repeat;
@@ -99,7 +99,7 @@ body {
   box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.5);
 }
 
-#gateway{
+#gateway, #confirmed{
   background-image: url('../public/bg4.jpg');
   background-size: cover;
   background-repeat: no-repeat;

@@ -1,10 +1,11 @@
 "use client"
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import useStore from '../../lib/zustand/store'
 import ShowcaseCard from '../components/ShowcaseCard'
 import OrderBottom from '../components/OrderBottom'
+import { getStatus } from '../../lib/api/order'
 
 export default function ViewCart() {
   const router = useRouter()
@@ -19,18 +20,33 @@ export default function ViewCart() {
     router.back()
     }
   }
+  
+  const [status, setstatus] = useState('online')
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const checkStatus =async()=>{
+        const res=await getStatus()
+        setstatus(res)
+        if(res==="offline"){
+          router.back()
+        }
+      }
+      checkStatus()
+    }, 2000);
+    return () => clearInterval(interval); 
+  }, [])
 
   const content = data.map((el)=>{
     el.description=''
     return(
-      <ShowcaseCard key={el._id} el={el}/>
+      <ShowcaseCard key={el._id} el={el} online={status==="online"}/>
     )
   })
 
   const addmore = items.map((el)=>{
     
     return !cart.find(item=>item._id===el._id)?(
-      <ShowcaseCard key={el._id} el={el}/>
+      <ShowcaseCard key={el._id} el={el} online={status==="online"}/>
     ):<></>
   })
   return (

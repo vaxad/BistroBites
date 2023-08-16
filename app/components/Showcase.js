@@ -5,10 +5,12 @@ import ShowcaseCard from './ShowcaseCard'
 import OrderBottom from './OrderBottom'
 import {getItems} from '../../lib/api/item'
 import useStore from '../../lib/zustand/store'
+import { getStatus } from '../../lib/api/order'
 
 export default function Showcase() {
   const [data, setdata] = useState([])
-  const {setItems} =useStore()
+  const [status, setstatus] = useState('online')
+  const {setItems,setCart} =useStore()
 
   useEffect(() => {
     const getData =async()=>{
@@ -19,16 +21,32 @@ export default function Showcase() {
     getData()
   }, [setdata,getItems,setItems])
   
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const checkStatus =async()=>{
+        const res=await getStatus()
+        setstatus(res)
+        if(res==="offline"){
+          setCart([])
+        }
+      }
+      checkStatus()
+    }, 2000);
+    return () => clearInterval(interval); 
+  }, [])
 
   const content = data.map((el)=>{
     return(
-      <ShowcaseCard key={el._id} el={el}/>
+      <ShowcaseCard key={el._id} el={el} online={status==="online"}/>
     )
   })
   return (
     <div id='showcase'>
       <div className=' sticky top-0 z-50'>
       <Navbar/>
+      </div>
+      <div className=' flex justify-center items-center pt-10'>
+        <h1 className=' text-slate-100 text-xl'>Outlet {status==='online'?'Open':'Closed'}!</h1>
       </div>
       <div className=' grid grid-cols-3'>
         {content}

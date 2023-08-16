@@ -1,8 +1,8 @@
 "use client"
 import { useRouter } from 'next/navigation'
-import React,{ useState } from 'react'
+import React,{ useEffect, useState } from 'react'
 import useStore from '../../lib/zustand/store'
-import {sendOrder} from '../../lib/api/order'
+import {getStatus, sendOrder} from '../../lib/api/order'
 
 
 export default function Form() {
@@ -12,6 +12,20 @@ export default function Form() {
     const {cart}=useStore()
     const router = useRouter()
 
+    const [status, setstatus] = useState('online')
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const checkStatus =async()=>{
+        const res=await getStatus()
+        setstatus(res)
+        if(res==="offline"){
+          router.back()
+        }
+      }
+      checkStatus()
+    }, 2000);
+    return () => clearInterval(interval); 
+  }, [])
     const handleSubmit=async(e)=>{
         e.preventDefault()
         // const order = {
@@ -23,9 +37,9 @@ export default function Form() {
         //     phone:data.phone
         // }
         const res = await sendOrder({cart:cart,data:data})
-        const response=res
-        if(response){
-        router.push('/confirmation')
+        //.log(res)
+        if(res){
+        router.push(`/confirmation/${res.order._id}`)
         }else{
             alert('some error occured')
             router.back()
