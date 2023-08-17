@@ -48,7 +48,7 @@ export default function Showcase() {
       <div className=' flex justify-center items-center pt-10'>
         <h1 className=' text-slate-100 text-xl'>Outlet {status==='online'?'Open':'Closed'}!</h1>
       </div>
-      <div className=' grid grid-cols-3'>
+      <div className=' lg:grid lg:grid-cols-3 md:grid md:grid-cols-2 flex flex-wrap'>
         {content}
         </div>
         <footer class=" flex sticky bottom-0">

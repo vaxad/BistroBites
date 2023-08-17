@@ -26,7 +26,7 @@ export default function Confirmation({params}) {
   
   return (
     <div id='confirmation'>
-        <div className=' p-24 justify-center flex items-center flex-col gap-5 text-slate-100'>
+        <div className=' lg:py-24 lg:px-24 px-12 py-24 h-full align-middle  justify-center flex items-center text-center flex-col gap-5 text-slate-100'>
             <h1>Youll receive a request on the provided UPI ID</h1>
             <h1>pay to complete the order with ID:{params.orderId}</h1>
             <Spinner/>

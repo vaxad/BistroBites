@@ -20,13 +20,13 @@ export default function ComfirmedPage({params}) {
   }, [])
   
   return (
-    <div className='flex justify-center items-center flex-col p-24 gap-10 text-slate-100' id='confirmed'>
-      <Link href={'/'} className='text-xl hover:text-orange-200 transition-all'>Go back to Home page</Link>
+    <div className='flex justify-center items-center flex-col lg:p-24 p-6 gap-10 text-slate-100' id='confirmed'>
+      <Link href={'/'} className='lg:text-xl text-lg text-center hover:text-orange-200 transition-all'>Go back to Home page</Link>
       {order&&<OrderDisplay el={order}/>}
-      <h1 className=' text-lg'>Any issues? Reach out to us!</h1>
+      <h1 className=' lg:text-lg text-sm text-center'>Any issues? Reach out to us!</h1>
       <div className=' flex flex-row gap-10'>  
-      <h1 className=' text-lg'>8898838812</h1>
-      <h1 className=' text-lg'>abc@hm.com</h1>
+      <h1 className=' lg:text-lg text-sm'>8898838812</h1>
+      <h1 className=' lg:text-lg text-sm'>abc@hm.com</h1>
       </div>
     </div>
   )
